@@ -13,7 +13,7 @@ import Foundation
 
 extension TileInfo {
     /// 创建用于测试的固定序列
-    static func testSequence(start: Int = 1, length: Int, category: TileCategoryType) -> [TileInfo] {
+    static func ceestSequence(start: Int = 1, length: Int, category: TileCategoryType) -> [TileInfo] {
         return (start..<(start + length)).map { TileInfo(value: $0, category: category) }
     }
     
