@@ -12,20 +12,18 @@ extension NexusViewController {
     func commenceNewRound() {
         selectedTiles.removeAll()
         
-        // Calculate sequence length and aperture count based on round
-        if currentRound == 1 {
-            sequenceLength = 3
-            apertureCount = 1
+        // 使用游戏模式配置
+        sequenceLength = gameMode.getSequenceLength(forRound: currentRound)
+        apertureCount = gameMode.getApertureCount(forRound: currentRound)
+        
+        // 根据游戏模式生成序列
+        if gameMode.usesMixedTiles {
+            targetSequence = TileGenerator.generateMixedSequence(length: sequenceLength)
         } else {
-            sequenceLength = min(3 + currentRound, 9)
-            apertureCount = min(1 + (currentRound / 2), 4)
+            targetSequence = TileGenerator.generateSequence(length: sequenceLength, category: tileCategory)
         }
         
-        // Generate random sequence
-        let startValue = Int.random(in: 1...(10 - sequenceLength))
-        targetSequence = Array(startValue...(startValue + sequenceLength - 1))
-        
-        // Select random aperture positions
+        // 选择随机的空缺位置
         apertureIndices = Array(0..<sequenceLength)
             .shuffled()
             .prefix(apertureCount)
@@ -49,11 +47,10 @@ extension NexusViewController {
         let totalWidth = CGFloat(sequenceLength) * tileWidth + CGFloat(sequenceLength - 1) * spacing
         let startX = (containerWidth - totalWidth) / 2
         
-        for (index, value) in targetSequence.enumerated() {
+        for (index, tileInfo) in targetSequence.enumerated() {
             let isAperture = apertureIndices.contains(index)
-            let image = isAperture ? nil : tileCategory.retrieveImage(for: value)
             
-            let tileView = EphemeralTileView(value: value, image: image, isAperture: isAperture)
+            let tileView = EphemeralTileView(tileInfo: tileInfo, isAperture: isAperture)
             targetContainerView.addSubview(tileView)
             targetTileViews.append(tileView)
             
@@ -89,24 +86,27 @@ extension NexusViewController {
         optionTileViews.forEach { $0.removeFromSuperview() }
         optionTileViews.removeAll()
         
-        // Generate options including correct answers and distractors
-        var options: [Int] = []
+        // 收集正确答案
+        var correctTiles: [TileInfo] = []
         for index in apertureIndices {
-            options.append(targetSequence[index])
+            correctTiles.append(targetSequence[index])
         }
         
-        // Add distractors to make total 6 tiles (will display in 2 rows)
+        // 生成干扰选项
         let totalTiles = 6
-        let distractorCount = totalTiles - options.count
-        var availableValues = Array(1...9).filter { value in
-            !options.contains(value)
-        }
+        let distractorCount = totalTiles - correctTiles.count
         
-        for _ in 0..<distractorCount {
-            if let randomValue = availableValues.randomElement() {
-                options.append(randomValue)
-                availableValues.removeAll { $0 == randomValue }
-            }
+        var options: [TileInfo] = correctTiles
+        
+        if gameMode.usesMixedTiles {
+            // 混合模式：生成混合类型的干扰项
+            let distractors = TileGenerator.generateMixedDistractors(correctTiles: correctTiles, count: distractorCount)
+            options.append(contentsOf: distractors)
+        } else {
+            // 单一类型模式
+            let correctValues = correctTiles.map { $0.value }
+            let distractors = TileGenerator.generateDistractors(correctValues: correctValues, category: tileCategory, count: distractorCount)
+            options.append(contentsOf: distractors)
         }
         
         options.shuffle()
@@ -118,16 +118,15 @@ extension NexusViewController {
         let tilesPerRow = 3
         let horizontalSpacing: CGFloat = 15
         let verticalSpacing: CGFloat = 10
-        let availableWidth = containerWidth - 40 // 20 padding on each side
+        let availableWidth = containerWidth - 40
         let tileWidth = (availableWidth - CGFloat(tilesPerRow - 1) * horizontalSpacing) / CGFloat(tilesPerRow)
-        let tileHeight: CGFloat = min(tileWidth * 1.3, 70) // Aspect ratio
+        let tileHeight: CGFloat = min(tileWidth * 1.3, 70)
         
-        for (index, value) in options.enumerated() {
+        for (index, tileInfo) in options.enumerated() {
             let row = index / tilesPerRow
             let col = index % tilesPerRow
             
-            let image = tileCategory.retrieveImage(for: value)
-            let tileView = EphemeralTileView(value: value, image: image, isAperture: false)
+            let tileView = EphemeralTileView(tileInfo: tileInfo, isAperture: false)
             optionsContainerView.addSubview(tileView)
             optionTileViews.append(tileView)
             
@@ -178,7 +177,9 @@ extension NexusViewController {
         tileView.luminousHighlight()
         
         // Store selection
-        selectedTiles[nextApertureIndex] = tileView.tileValue
+        if let tileInfo = tileView.tileInfo {
+            selectedTiles[nextApertureIndex] = tileInfo
+        }
         
         // Animate tile movement towards the corresponding target tile center
         let targetTileView = targetTileViews[nextApertureIndex]
@@ -217,12 +218,18 @@ extension NexusViewController {
         if isCorrect {
             demonstrateSuccess()
         } else {
-            demonstrateFailure()
+            mistakeCount += 1
+            if gameMode.shouldEndGame(mistakes: mistakeCount, round: currentRound) {
+                demonstrateFailure()
+            } else {
+                // 显示错误但继续游戏（未来扩展用）
+                demonstrateFailure()
+            }
         }
     }
     
     func demonstrateSuccess() {
-        let pointsEarned = apertureCount * 10 * currentRound
+        let pointsEarned = gameMode.calculateScore(apertureCount: apertureCount, round: currentRound, timeUsed: elapsedTime)
         currentScore += pointsEarned
         
         // Success animation
@@ -272,7 +279,7 @@ extension NexusViewController {
     func demonstrateFailure() {
         // Stop timer and save game record
         stopTimer()
-        VestigeDataManager.shared.archiveRecord(score: currentScore, rounds: currentRound, tileType: tileCategory.rawValue, duration: elapsedTime)
+        VestigeDataManager.shared.archiveRecord(score: currentScore, rounds: currentRound, tileType: tileCategory.rawValue, duration: elapsedTime, gameMode: gameMode.id)
         
         let failureLabel = UILabel()
         failureLabel.text = "Game Over\nFinal Score: \(currentScore)"

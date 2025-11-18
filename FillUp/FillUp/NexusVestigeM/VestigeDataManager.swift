@@ -15,14 +15,16 @@ struct VestigeRecord: Codable {
     let roundsCompleted: Int
     let tileType: String
     let duration: Double // in seconds
+    let gameMode: String // 游戏模式ID
     let timestamp: Date
     
-    init(score: Int, roundsCompleted: Int, tileType: String, duration: Double = 0) {
+    init(score: Int, roundsCompleted: Int, tileType: String, duration: Double = 0, gameMode: String = "classic") {
         self.identifier = UUID()
         self.score = score
         self.roundsCompleted = roundsCompleted
         self.tileType = tileType
         self.duration = duration
+        self.gameMode = gameMode
         self.timestamp = Date()
     }
 }
@@ -41,7 +43,7 @@ class VestigeDataManager {
     }
     
     // Save a game record
-    func archiveRecord(score: Int, rounds: Int, tileType: String, duration: Double) {
+    func archiveRecord(score: Int, rounds: Int, tileType: String, duration: Double, gameMode: String = "classic") {
         let entity = NSEntityDescription.entity(forEntityName: "GameRecord", in: context)!
         let record = NSManagedObject(entity: entity, insertInto: context)
         
@@ -50,6 +52,7 @@ class VestigeDataManager {
         record.setValue(rounds, forKey: "rounds")
         record.setValue(tileType, forKey: "tileType")
         record.setValue(duration, forKey: "duration")
+        record.setValue(gameMode, forKey: "gameMode")
         record.setValue(Date(), forKey: "timestamp")
         
         do {
@@ -74,8 +77,9 @@ class VestigeDataManager {
                 }
                 
                 let duration = object.value(forKey: "duration") as? Double ?? 0
+                let gameMode = object.value(forKey: "gameMode") as? String ?? "classic"
                 
-                return VestigeRecord(score: score, roundsCompleted: rounds, tileType: tileType, duration: duration)
+                return VestigeRecord(score: score, roundsCompleted: rounds, tileType: tileType, duration: duration, gameMode: gameMode)
             }
         } catch {
             print("Failed to fetch records: \(error)")
@@ -126,9 +130,9 @@ enum TileCategoryType: String {
     
     var displayName: String {
         switch self {
-        case .fillA: return "Bamboo Series"
-        case .fillB: return "Character Series"
-        case .fillC: return "Circle Series"
+        case .fillA: return "Bamboo"
+        case .fillB: return "Character"
+        case .fillC: return "Circle"
         }
     }
 }

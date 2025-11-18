@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28B702812ECBFB0000BE8A1A /* Johsumgh.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28B702802ECBFB0000BE8A1A /* Johsumgh.xcframework */; };
-		3DC99861310624A22A821720 /* Pods_FillUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8760F5206B18B138EE0542 /* Pods_FillUp.framework */; };
+		28B703032ECC22CE00BE8A1A /* Johsumgh.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28B703022ECC22CE00BE8A1A /* Johsumgh.xcframework */; };
+		806E537529154894397B113F /* Pods_FillUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D440ECEF6A944103A08C2BE3 /* Pods_FillUp.framework */; };
 		FEDE4BBF2EC87D480044AD09 /* FillUp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BB42EC87D480044AD09 /* FillUp.xcdatamodeld */; };
 		FEDE4BC22EC87D480044AD09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEDE4BB32EC87D480044AD09 /* Assets.xcassets */; };
 		FEDE4BC42EC87D480044AD09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEDE4BB82EC87D480044AD09 /* LaunchScreen.storyboard */; };
@@ -20,18 +20,20 @@
 		FEDE4BD42EC881AC0044AD09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BC72EC881AC0044AD09 /* AppDelegate.swift */; };
 		FEDE4BD52EC881AC0044AD09 /* NexusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BCC2EC881AC0044AD09 /* NexusViewController.swift */; };
 		FEDE4BD62EC881AC0044AD09 /* ApertureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BC62EC881AC0044AD09 /* ApertureViewController.swift */; };
-		FEDE4BD72EC881AC0044AD09 /* FillUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BCB2EC881AC0044AD09 /* FillUpModel.swift */; };
 		FEDE4BD82EC881AC0044AD09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BCE2EC881AC0044AD09 /* SceneDelegate.swift */; };
 		FEDE4BD92EC881AC0044AD09 /* VestigeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BCF2EC881AC0044AD09 /* VestigeDataManager.swift */; };
-		FEDE4BDF2EC8BC4E0044AD09 /* FillUpModel_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BDE2EC8BC4E0044AD09 /* FillUpModel_1.swift */; };
-		FEDE4BE12EC8BC550044AD09 /* FillUpModel_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BE02EC8BC550044AD09 /* FillUpModel_2.swift */; };
+		FEDE4BE22EC8BC600044AD09 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BE32EC8BC600044AD09 /* BaseViewController.swift */; };
+		FEDE4BE42EC8BC610044AD09 /* TileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BE52EC8BC610044AD09 /* TileImageModel.swift */; };
+		FEDE4BE72EC8BC700044AD09 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BE82EC8BC700044AD09 /* GameMode.swift */; };
+		FEDE4BE92EC8BC710044AD09 /* TileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BEA2EC8BC710044AD09 /* TileInfo.swift */; };
+		FEDE4BEC2EC8BC800044AD09 /* TileInfo+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4BED2EC8BC800044AD09 /* TileInfo+Testing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0BB5F6545F3619EF114D95D2 /* Pods-FillUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillUp.debug.xcconfig"; path = "Target Support Files/Pods-FillUp/Pods-FillUp.debug.xcconfig"; sourceTree = "<group>"; };
-		28B702802ECBFB0000BE8A1A /* Johsumgh.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Johsumgh.xcframework; sourceTree = "<group>"; };
-		4BD6D191110CC8214E4CB005 /* Pods-FillUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillUp.release.xcconfig"; path = "Target Support Files/Pods-FillUp/Pods-FillUp.release.xcconfig"; sourceTree = "<group>"; };
-		9E8760F5206B18B138EE0542 /* Pods_FillUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FillUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28B703022ECC22CE00BE8A1A /* Johsumgh.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Johsumgh.xcframework; sourceTree = "<group>"; };
+		427BFB40D70931E49A13DE59 /* Pods-FillUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillUp.debug.xcconfig"; path = "Target Support Files/Pods-FillUp/Pods-FillUp.debug.xcconfig"; sourceTree = "<group>"; };
+		BE5ADCA69FBD422C3739E9E6 /* Pods-FillUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillUp.release.xcconfig"; path = "Target Support Files/Pods-FillUp/Pods-FillUp.release.xcconfig"; sourceTree = "<group>"; };
+		D440ECEF6A944103A08C2BE3 /* Pods_FillUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FillUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEDE4B972EC87B3F0044AD09 /* FillUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FillUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEDE4BB32EC87D480044AD09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEDE4BB62EC87D480044AD09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,13 +45,15 @@
 		FEDE4BC82EC881AC0044AD09 /* ChronicleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronicleViewController.swift; sourceTree = "<group>"; };
 		FEDE4BC92EC881AC0044AD09 /* EnigmaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnigmaViewController.swift; sourceTree = "<group>"; };
 		FEDE4BCA2EC881AC0044AD09 /* EphemeralTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralTileView.swift; sourceTree = "<group>"; };
-		FEDE4BCB2EC881AC0044AD09 /* FillUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillUpModel.swift; sourceTree = "<group>"; };
 		FEDE4BCC2EC881AC0044AD09 /* NexusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NexusViewController.swift; sourceTree = "<group>"; };
 		FEDE4BCD2EC881AC0044AD09 /* NexusViewController+GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NexusViewController+GameLogic.swift"; sourceTree = "<group>"; };
 		FEDE4BCE2EC881AC0044AD09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FEDE4BCF2EC881AC0044AD09 /* VestigeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestigeDataManager.swift; sourceTree = "<group>"; };
-		FEDE4BDE2EC8BC4E0044AD09 /* FillUpModel_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillUpModel_1.swift; sourceTree = "<group>"; };
-		FEDE4BE02EC8BC550044AD09 /* FillUpModel_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillUpModel_2.swift; sourceTree = "<group>"; };
+		FEDE4BE32EC8BC600044AD09 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FEDE4BE52EC8BC610044AD09 /* TileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileImageModel.swift; sourceTree = "<group>"; };
+		FEDE4BE82EC8BC700044AD09 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		FEDE4BEA2EC8BC710044AD09 /* TileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileInfo.swift; sourceTree = "<group>"; };
+		FEDE4BED2EC8BC800044AD09 /* TileInfo+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TileInfo+Testing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,27 +61,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28B702812ECBFB0000BE8A1A /* Johsumgh.xcframework in Frameworks */,
-				3DC99861310624A22A821720 /* Pods_FillUp.framework in Frameworks */,
+				28B703032ECC22CE00BE8A1A /* Johsumgh.xcframework in Frameworks */,
+				806E537529154894397B113F /* Pods_FillUp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4205316EF712BBCF1E127DDB /* Pods */ = {
+		44BC8914600E42FFC3189EDA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0BB5F6545F3619EF114D95D2 /* Pods-FillUp.debug.xcconfig */,
-				4BD6D191110CC8214E4CB005 /* Pods-FillUp.release.xcconfig */,
+				427BFB40D70931E49A13DE59 /* Pods-FillUp.debug.xcconfig */,
+				BE5ADCA69FBD422C3739E9E6 /* Pods-FillUp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8F0030D696BCE7F1A5D599EA /* Frameworks */ = {
+		F9751A36DAEA1C6666DC983C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9E8760F5206B18B138EE0542 /* Pods_FillUp.framework */,
+				D440ECEF6A944103A08C2BE3 /* Pods_FillUp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -87,8 +91,8 @@
 			children = (
 				FEDE4BBC2EC87D480044AD09 /* FillUp */,
 				FEDE4B982EC87B3F0044AD09 /* Products */,
-				4205316EF712BBCF1E127DDB /* Pods */,
-				8F0030D696BCE7F1A5D599EA /* Frameworks */,
+				44BC8914600E42FFC3189EDA /* Pods */,
+				F9751A36DAEA1C6666DC983C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,12 +109,14 @@
 			children = (
 				FEDE4BC72EC881AC0044AD09 /* AppDelegate.swift */,
 				FEDE4BCE2EC881AC0044AD09 /* SceneDelegate.swift */,
+				28B703022ECC22CE00BE8A1A /* Johsumgh.xcframework */,
+				FEDE4BE62EC8BC620044AD09 /* Base */,
+				FEDE4BEB2EC8BC720044AD09 /* GameModes */,
 				FEDE4BDD2EC892BF0044AD09 /* NexusVestigeM */,
 				FEDE4BDC2EC892970044AD09 /* ApertureVC */,
 				FEDE4BDA2EC892930044AD09 /* EnimaEpheme */,
 				FEDE4BDB2EC892960044AD09 /* FillModel */,
 				FEDE4BB32EC87D480044AD09 /* Assets.xcassets */,
-				28B702802ECBFB0000BE8A1A /* Johsumgh.xcframework */,
 				FEDE4BB42EC87D480044AD09 /* FillUp.xcdatamodeld */,
 				FEDE4BB62EC87D480044AD09 /* Info.plist */,
 				FEDE4BB82EC87D480044AD09 /* LaunchScreen.storyboard */,
@@ -131,9 +137,9 @@
 		FEDE4BDB2EC892960044AD09 /* FillModel */ = {
 			isa = PBXGroup;
 			children = (
-				FEDE4BCB2EC881AC0044AD09 /* FillUpModel.swift */,
-				FEDE4BDE2EC8BC4E0044AD09 /* FillUpModel_1.swift */,
-				FEDE4BE02EC8BC550044AD09 /* FillUpModel_2.swift */,
+				FEDE4BE52EC8BC610044AD09 /* TileImageModel.swift */,
+				FEDE4BEA2EC8BC710044AD09 /* TileInfo.swift */,
+				FEDE4BED2EC8BC800044AD09 /* TileInfo+Testing.swift */,
 			);
 			path = FillModel;
 			sourceTree = "<group>";
@@ -157,6 +163,22 @@
 			path = NexusVestigeM;
 			sourceTree = "<group>";
 		};
+		FEDE4BE62EC8BC620044AD09 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FEDE4BE32EC8BC600044AD09 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		FEDE4BEB2EC8BC720044AD09 /* GameModes */ = {
+			isa = PBXGroup;
+			children = (
+				FEDE4BE82EC8BC700044AD09 /* GameMode.swift */,
+			);
+			path = GameModes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -164,11 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FEDE4BAD2EC87B410044AD09 /* Build configuration list for PBXNativeTarget "FillUp" */;
 			buildPhases = (
-				51D5A2E1E309E12FDD416153 /* [CP] Check Pods Manifest.lock */,
+				B7DE5EA67383A6C7B276D975 /* [CP] Check Pods Manifest.lock */,
 				FEDE4B932EC87B3F0044AD09 /* Sources */,
 				FEDE4B942EC87B3F0044AD09 /* Frameworks */,
 				FEDE4B952EC87B3F0044AD09 /* Resources */,
-				41FEBCD51291FCB229BD6758 /* [CP] Embed Pods Frameworks */,
+				15ADA91B21A7BB0D48CCB9D0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -228,7 +250,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		41FEBCD51291FCB229BD6758 /* [CP] Embed Pods Frameworks */ = {
+		15ADA91B21A7BB0D48CCB9D0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -249,7 +271,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FillUp/Pods-FillUp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		51D5A2E1E309E12FDD416153 /* [CP] Check Pods Manifest.lock */ = {
+		B7DE5EA67383A6C7B276D975 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,12 +307,14 @@
 				FEDE4BD32EC881AC0044AD09 /* EnigmaViewController.swift in Sources */,
 				FEDE4BD42EC881AC0044AD09 /* AppDelegate.swift in Sources */,
 				FEDE4BD52EC881AC0044AD09 /* NexusViewController.swift in Sources */,
-				FEDE4BDF2EC8BC4E0044AD09 /* FillUpModel_1.swift in Sources */,
 				FEDE4BD62EC881AC0044AD09 /* ApertureViewController.swift in Sources */,
-				FEDE4BE12EC8BC550044AD09 /* FillUpModel_2.swift in Sources */,
-				FEDE4BD72EC881AC0044AD09 /* FillUpModel.swift in Sources */,
 				FEDE4BD82EC881AC0044AD09 /* SceneDelegate.swift in Sources */,
 				FEDE4BD92EC881AC0044AD09 /* VestigeDataManager.swift in Sources */,
+				FEDE4BE22EC8BC600044AD09 /* BaseViewController.swift in Sources */,
+				FEDE4BE42EC8BC610044AD09 /* TileImageModel.swift in Sources */,
+				FEDE4BE72EC8BC700044AD09 /* GameMode.swift in Sources */,
+				FEDE4BE92EC8BC710044AD09 /* TileInfo.swift in Sources */,
+				FEDE4BEC2EC8BC800044AD09 /* TileInfo+Testing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,23 +342,21 @@
 /* Begin XCBuildConfiguration section */
 		FEDE4BAE2EC87B410044AD09 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BB5F6545F3619EF114D95D2 /* Pods-FillUp.debug.xcconfig */;
+			baseConfigurationReference = 427BFB40D70931E49A13DE59 /* Pods-FillUp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FillUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mahjong Fill-Up";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We will use your data to enhance your user experience and provide personalized advertising services";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -345,10 +367,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FillUp.fus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -362,23 +383,21 @@
 		};
 		FEDE4BAF2EC87B410044AD09 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BD6D191110CC8214E4CB005 /* Pods-FillUp.release.xcconfig */;
+			baseConfigurationReference = BE5ADCA69FBD422C3739E9E6 /* Pods-FillUp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FillUp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mahjong Fill-Up";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We will use your data to enhance your user experience and provide personalized advertising services";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -389,10 +408,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FillUp.fus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -7,106 +7,41 @@
 
 import UIKit
 
-class NexusViewController: UIViewController {
+class NexusViewController: BaseViewController {
     
-    let tileCategory: TileCategoryType
+    var tileCategory: TileCategoryType // Changed to var for switching
+    let gameMode: GameMode
     
     var currentScore: Int = 0
     var currentRound: Int = 1
     var sequenceLength: Int = 3
     var apertureCount: Int = 1
+    var mistakeCount: Int = 0
     
-    var targetSequence: [Int] = []
+    var targetSequence: [TileInfo] = []
     var apertureIndices: [Int] = []
-    var selectedTiles: [Int: Int] = [:] // aperture index -> selected value
+    var selectedTiles: [Int: TileInfo] = [:] // aperture index -> selected tile
     
-    let backgroundImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
+    lazy var scoreLabel: UILabel = createLabel(fontSize: 24, weight: .bold)
+    lazy var roundLabel: UILabel = createLabel(fontSize: 20, weight: .medium)
+    lazy var timerLabel: UILabel = createLabel(fontSize: 18, weight: .medium)
+    lazy var hintLabel: UILabel = createLabel(fontSize: 16, weight: .medium)
+    lazy var targetContainerView: UIView = createContainerView()
+    lazy var optionsContainerView: UIView = createContainerView()
     
-    let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let backButton: UIButton = {
+    lazy var switchTileButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("← Back", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        button.layer.cornerRadius = 10
+        button.setTitle("🎴", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        button.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.8)
+        button.layer.cornerRadius = 20
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.3
+        button.isHidden = true // Will show only in Basic Mode
         return button
-    }()
-    
-    let scoreLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Score: 0"
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.shadowColor = .black
-        label.shadowOffset = CGSize(width: 1, height: 1)
-        return label
-    }()
-    
-    let roundLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Round: 1"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.shadowColor = .black
-        label.shadowOffset = CGSize(width: 1, height: 1)
-        return label
-    }()
-    
-    let timerLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Time: 0.0s"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.shadowColor = .black
-        label.shadowOffset = CGSize(width: 1, height: 1)
-        return label
-    }()
-    
-    let targetContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.15)
-        view.layer.cornerRadius = 15
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let optionsContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.15)
-        view.layer.cornerRadius = 15
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let hintLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Select tiles to fill the gaps"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.shadowColor = .black
-        label.shadowOffset = CGSize(width: 1, height: 1)
-        return label
     }()
     
     var targetTileViews: [EphemeralTileView] = []
@@ -116,8 +51,9 @@ class NexusViewController: UIViewController {
     var gameTimer: Timer?
     var elapsedTime: Double = 0.0
     
-    init(tileType: TileCategoryType) {
+    init(tileType: TileCategoryType, gameMode: GameMode = ClassicMode()) {
         self.tileCategory = tileType
+        self.gameMode = gameMode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -127,8 +63,7 @@ class NexusViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupViews()
+        setupGameViews()
     }
     
     override func viewDidLayoutSubviews() {
@@ -141,37 +76,27 @@ class NexusViewController: UIViewController {
         }
     }
     
-    func setupViews() {
-        view.addSubview(backgroundImageView)
-        view.addSubview(overlayView)
-        view.addSubview(backButton)
+    func setupGameViews() {
+        scoreLabel.text = "Score: 0"
+        roundLabel.text = "Round: 1"
+        timerLabel.text = "Time: 0.0s"
+        hintLabel.text = "Tap tiles to fill the gaps"
+        
         view.addSubview(scoreLabel)
         view.addSubview(roundLabel)
         view.addSubview(timerLabel)
         view.addSubview(targetContainerView)
         view.addSubview(hintLabel)
         view.addSubview(optionsContainerView)
+        view.addSubview(switchTileButton)
         
-        backgroundImageView.image = UIImage(named: "fillUpPhoto")
-        
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        // Only show switch button in Basic Mode (non-mixed)
+        if !gameMode.usesMixedTiles {
+            switchTileButton.isHidden = false
+            switchTileButton.addTarget(self, action: #selector(switchTileTypeTapped), for: .touchUpInside)
+        }
         
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            backButton.widthAnchor.constraint(equalToConstant: 100),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
-            
             scoreLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
@@ -180,6 +105,11 @@ class NexusViewController: UIViewController {
             
             timerLabel.topAnchor.constraint(equalTo: roundLabel.bottomAnchor, constant: 5),
             timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            switchTileButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            switchTileButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            switchTileButton.widthAnchor.constraint(equalToConstant: 44),
+            switchTileButton.heightAnchor.constraint(equalToConstant: 44),
             
             targetContainerView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 30),
             targetContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -197,9 +127,30 @@ class NexusViewController: UIViewController {
         ])
     }
     
-    @objc func backButtonTapped() {
+    @objc func switchTileTypeTapped() {
+        // Cycle through tile types
+        switch tileCategory {
+        case .fillA:
+            tileCategory = .fillB
+        case .fillB:
+            tileCategory = .fillC
+        case .fillC:
+            tileCategory = .fillA
+        }
+        
+        // Animate button
+        switchTileButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.switchTileButton.transform = .identity
+        })
+        
+        // Regenerate current round with new tile type
+        commenceNewRound()
+    }
+    
+    override func backButtonTapped() {
         stopTimer()
-        dismiss(animated: true)
+        super.backButtonTapped()
     }
     
     func startTimer() {

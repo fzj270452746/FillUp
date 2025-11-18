@@ -17,17 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fillUpPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="a9U-d7-5uh">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fillUpPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="jQN-v4-9h8">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="a9U-d7-5uh" secondAttribute="trailing" id="0qZ-aA-khk"/>
-                            <constraint firstItem="a9U-d7-5uh" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="Ab8-vh-TPW"/>
-                            <constraint firstItem="a9U-d7-5uh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CWS-TN-Lul"/>
-                            <constraint firstAttribute="top" secondItem="a9U-d7-5uh" secondAttribute="top" id="cJ1-DD-6dY"/>
+                            <constraint firstItem="jQN-v4-9h8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6UR-Xv-tjF"/>
+                            <constraint firstItem="jQN-v4-9h8" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="908-rS-rh7"/>
+                            <constraint firstAttribute="top" secondItem="jQN-v4-9h8" secondAttribute="top" id="VK4-f6-iyR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jQN-v4-9h8" secondAttribute="trailing" id="Y9H-HN-cGR"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,7 +37,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fillUpPhoto" width="1953" height="2729"/>
+        <image name="fillUpPhoto" width="2197" height="4756"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -26,9 +26,27 @@ class EphemeralTileView: UIView {
         return label
     }()
     
-    var tileValue: Int = 0
-    var isAperture: Bool = false // Is this a gap/empty slot
+    var tileInfo: TileInfo?
+    var tileValue: Int = 0 // 保留向后兼容
+    var isAperture: Bool = false
     
+    // 新的初始化方法（支持混合类型）
+    init(tileInfo: TileInfo, isAperture: Bool = false) {
+        super.init(frame: .zero)
+        self.tileInfo = tileInfo
+        self.tileValue = tileInfo.value
+        self.isAperture = isAperture
+        
+        setupViews()
+        
+        if isAperture {
+            configureAsAperture()
+        } else {
+            imageView.image = tileInfo.getImage()
+        }
+    }
+    
+    // 旧的初始化方法（向后兼容）
     init(value: Int, image: UIImage?, isAperture: Bool = false) {
         super.init(frame: .zero)
         self.tileValue = value

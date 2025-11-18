@@ -7,43 +7,13 @@
 
 import UIKit
 
-class ChronicleViewController: UIViewController {
+class ChronicleViewController: BaseViewController {
     
     var records: [VestigeRecord] = []
     
-    let backgroundImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
-    
-    let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("← Back", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
+    lazy var titleLabel: UILabel = {
+        let label = createLabel(fontSize: 18, weight: .bold)
         label.text = "Game Records"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.shadowColor = .black
         label.shadowOffset = CGSize(width: 2, height: 2)
         return label
     }()
@@ -69,36 +39,20 @@ class ChronicleViewController: UIViewController {
         return label
     }()
     
-    let clearAllButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Clear All Records", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.backgroundColor = UIColor.systemRed.withAlphaComponent(0.7)
-        button.layer.cornerRadius = 12
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    lazy var clearAllButton: UIButton = createStyledButton(title: "Clear All Records", backgroundColor: UIColor.systemRed.withAlphaComponent(0.7))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupViews()
+        setupRecordsViews()
         loadRecords()
     }
     
-    func setupViews() {
-        view.addSubview(backgroundImageView)
-        view.addSubview(overlayView)
-        view.addSubview(backButton)
+    func setupRecordsViews() {
         view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.addSubview(emptyStateLabel)
         view.addSubview(clearAllButton)
         
-        backgroundImageView.image = UIImage(named: "fillUpPhoto")
-        
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         clearAllButton.addTarget(self, action: #selector(clearAllButtonTapped), for: .touchUpInside)
         
         tableView.delegate = self
@@ -106,21 +60,6 @@ class ChronicleViewController: UIViewController {
         tableView.register(ChronicleTableViewCell.self, forCellReuseIdentifier: "RecordCell")
         
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            backButton.widthAnchor.constraint(equalToConstant: 100),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
-            
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
@@ -152,10 +91,6 @@ class ChronicleViewController: UIViewController {
         emptyStateLabel.isHidden = hasRecords
         tableView.isHidden = !hasRecords
         clearAllButton.isHidden = !hasRecords
-    }
-    
-    @objc func backButtonTapped() {
-        dismiss(animated: true)
     }
     
     @objc func clearAllButtonTapped() {
@@ -294,7 +229,8 @@ class ChronicleTableViewCell: UITableViewCell {
         scoreLabel.text = "Score: \(record.score)"
         
         let durationText = formatDuration(record.duration)
-        detailsLabel.text = "Rounds: \(record.roundsCompleted) | Type: \(getTileTypeName(record.tileType)) | Time: \(durationText)"
+        let modeName = getGameModeName(record.gameMode)
+        detailsLabel.text = "Rounds: \(record.roundsCompleted) | \(modeName) | Type: \(getTileTypeName(record.tileType)) | Time: \(durationText)"
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -318,6 +254,14 @@ class ChronicleTableViewCell: UITableViewCell {
         case "fillB": return "Character"
         case "fillC": return "Circle"
         default: return typeString
+        }
+    }
+    
+    func getGameModeName(_ modeString: String) -> String {
+        switch modeString {
+        case "classic": return "Basic"
+        case "mixed": return "Mixed"
+        default: return modeString
         }
     }
 }

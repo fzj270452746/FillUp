@@ -7,32 +7,7 @@
 
 import UIKit
 
-class EnigmaViewController: UIViewController {
-    
-    let backgroundImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
-    
-    let overlayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("← Back", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+class EnigmaViewController: BaseViewController {
     
     let scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -46,53 +21,25 @@ class EnigmaViewController: UIViewController {
         return view
     }()
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
+    lazy var titleLabel: UILabel = {
+        let label = createLabel(fontSize: 36, weight: .bold)
         label.text = "How to Play"
-        label.font = UIFont.boldSystemFont(ofSize: 36)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.shadowColor = .black
         label.shadowOffset = CGSize(width: 2, height: 2)
         return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupViews()
+        setupInstructionsViews()
         createInstructions()
     }
     
-    func setupViews() {
-        view.addSubview(backgroundImageView)
-        view.addSubview(overlayView)
-        view.addSubview(backButton)
+    func setupInstructionsViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(titleLabel)
         
-        backgroundImageView.image = UIImage(named: "fillUpPhoto")
-        
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            backButton.widthAnchor.constraint(equalToConstant: 100),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
-            
             scrollView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 20),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -112,11 +59,9 @@ class EnigmaViewController: UIViewController {
     
     func createInstructions() {
         let instructions = [
-            ("🎮 How to Play", "• The top row shows a sequence of mahjong tiles with one or more gaps marked by '?'\n• Tap tiles from the bottom row to fill the gaps in order\n• Complete the sequence correctly to earn points and advance to the next round"),
-            ("📈 Progression", "• Round 1 starts with 3 tiles and 1 gap\n• Each round adds more tiles and gaps\n• The difficulty increases as you progress\n• Gaps can appear at different positions"),
-            ("💯 Scoring", "• Earn points based on: Number of gaps × 10 × Current round\n• More gaps and higher rounds = more points\n• Try to reach the highest score possible!"),
-            ("❌ Game Over", "• The game ends when you fill the gaps incorrectly\n• Your score and progress will be saved to the records\n• You can retry anytime to beat your high score"),
-            ("🎴 Tile Series", "• Choose from three different mahjong tile series:\n  - Bamboo Series (fillA)\n  - Character Series (fillB)\n  - Circle Series (fillC)\n• Each series has tiles numbered 1-9")
+            ("🎮 How to Play", "• Fill the gaps marked by '?'\n• Tap tiles from the bottom in order\n• Each round adds more tiles and gaps\n• One mistake ends the game"),
+            ("💯 Scoring", "• Basic Mode: Gaps × 10 × Round\n• Mixed Mode: Gaps × 15 × Round + Bonus"),
+            ("🎴 Game Modes", "• Basic: Single tile type (Bamboo/Character/Circle)\n• Mixed: All three types combined")
         ]
         
         var previousView: UIView = titleLabel
@@ -182,10 +127,6 @@ class EnigmaViewController: UIViewController {
         ])
         
         return containerView
-    }
-    
-    @objc func backButtonTapped() {
-        dismiss(animated: true)
     }
 }
 
